@@ -9,7 +9,7 @@ function App() {
         <footer>
           This website is coded by Tory Sigmond and is{" "}
           <a
-            href="https://github.com/tesigmond/react-weather-project"
+            href="https://github.com/tesigmond/dictionary-project"
             target="_blank"
             rel="noreferrer"
           >
