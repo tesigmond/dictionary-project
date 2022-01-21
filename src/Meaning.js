@@ -1,0 +1,22 @@
+import React from "react";
+
+export default function Meaning(props) {
+  console.log(props.meaning);
+  return (
+    <div className="meaning">
+      <h5>{props.meaning.partOfSpeech}</h5>
+      {props.meaning.definitions.map(function (definition, index) {
+        return (
+          <div key={index}>
+            <p>
+              {index+1}. {definition.definition}
+              <br />
+              <br />
+              <em>{definition.example}</em>
+            </p>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
