@@ -18,6 +18,6 @@ export default function Definition(props) {
       </div>
     );
   } else {
-    return <div className="definition">Hello world!</div>;
+    return null;
   }
 }
