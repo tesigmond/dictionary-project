@@ -3,9 +3,11 @@ import React, { useState } from "react";
 import "./Dictionary.css";
 import Definition from "./Definition";
 
-export default function Dictionary() {
-  let [keyword, setKeyword] = useState("");
+export default function Dictionary(props) {
+  let [keyword, setKeyword] = useState(props.defaultKeyword);
   let [definition, setDefinition] = useState(null);
+  let [loaded, setLoaded]=useState(false);
+
   function updateKeyword(event) {
     setKeyword(event.target.value);
   }
@@ -26,12 +28,27 @@ export default function Dictionary() {
     axios.get(apiUrl).then(handleResponse);
   }
 
-  return (
-    <div className="Dictionary">
+  function load(){
+    setLoaded(true);
+    search();
+  }
+if (loaded){ return (
+  <div className="Dictionary">
+    <section>
       <form onSubmit={handleSubmit}>
-        <input type="search" autoFocus={true} onChange={updateKeyword} />
+        <input
+          type="search"
+          placeholder="Search for a word"
+          autoFocus={true}
+          onChange={updateKeyword}
+        />
       </form>
-      <Definition definition={definition} />
-    </div>
-  );
+    </section>
+    <Definition definition={definition} />
+  </div>
+);} else{
+  load();
+  return "Loading";
+}
+ 
 }
