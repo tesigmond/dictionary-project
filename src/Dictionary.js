@@ -3,14 +3,12 @@ import React, { useState } from "react";
 import "./Dictionary.css";
 import Definition from "./Definition";
 import Photos from "./Photos";
-import MWDefinition from "./MWDefinition";
 
 export default function Dictionary(props) {
   let [keyword, setKeyword] = useState(props.defaultKeyword);
   let [definition, setDefinition] = useState(null);
   let [loaded, setLoaded]=useState(false);
   let [photos, setPhotos]=useState(null);
-  let [mWdefinition, setmWdefinition]=useState(null);
 
   
 
@@ -20,12 +18,6 @@ export default function Dictionary(props) {
 
   function handlePexelsResponse (response){
     setPhotos(response.data.photos);
-  }
-
-  function handleMerriamWebsterResponse (response){
-    console.log(response);
-    setmWdefinition(response.data);
-    console.log(mWdefinition);
   }
 
   
@@ -39,11 +31,6 @@ export default function Dictionary(props) {
       let pexelsApiUrl = `https://api.pexels.com/v1/search?query=${keyword}&per_page=9`;
       let headers ={Authorization: `Bearer ${pexelsApiKey}`};
       axios.get(pexelsApiUrl, {headers: headers}).then(handlePexelsResponse);
-
-      let merriamWebsterApiKey = "dc3688ff-344e-45d5-8ea5-4213b55325a4";
-      let merriamWebsterApiUrl = `https://www.dictionaryapi.com/api/v3/references/collegiate/json/${keyword}?key=${merriamWebsterApiKey}`;
-      axios.get(merriamWebsterApiUrl).then(handleMerriamWebsterResponse);
-      console.log(merriamWebsterApiUrl);
   }
 
   function handleSubmit(event) {
@@ -72,7 +59,6 @@ if (loaded){ return (
       </form>
     </section>
     <Definition definition={definition} />
-    <MWDefinition definition={mWdefinition} />
     <Photos photos={photos}/>
   </div>
 );} else{
